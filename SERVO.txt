@@ -1,0 +1,25 @@
+#include "mbed.h"
+#include "Servo.h"
+ 
+Servo myservo(PTE20);
+Serial pc(USBTX, USBRX);
+ 
+int main() {
+    printf("Servo Calibration Controls:\n");
+    printf("1,2,3 - Position Servo (full left, middle, full right)\n");
+
+ 
+    float range = 0.0013;
+    float position = 0.5;
+    
+    while(1) {                   
+        switch(pc.getc()) {
+            case '1': position = 0.0; break;
+            case '2': position = 0.5; break;
+            case '3': position = 1.0; break;
+        }
+        printf("position = %.1f, range = +/-%0.4f\n", position, range);
+        myservo.calibrate(range, 45.0); 
+        myservo = position;
+    }
+}

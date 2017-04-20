@@ -1,0 +1,13 @@
+#include "mbed.h"
+
+PwmOut led(LED1);
+AnalogIn pot(PTB0);
+Serial pc(USBTX, USBRX); 
+
+int main() {
+    while(1){
+    float intensidad = pot.read(); 
+    led.period(0.005);      // 4 second period
+    led.write(intensidad);      // 50% duty cycle, relative to period
+    }
+}

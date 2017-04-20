@@ -1,0 +1,16 @@
+#include "mbed.h"
+
+PwmOut motor(PTE20);
+AnalogIn pot(PTB0);
+Serial pc(USBTX, USBRX); 
+
+int main() {
+    while(1){
+    float velocidad;
+    for(velocidad = 0; velocidad <= 1; velocidad += 0.01){
+    motor.period(0.005);      // 4 second period
+    motor.write(velocidad);      // 50% duty cycle, relative to period
+    wait(0.2);
+    }
+    }
+}
